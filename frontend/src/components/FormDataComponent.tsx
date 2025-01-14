@@ -2,12 +2,24 @@ import React from 'react'
 import { DataGrid } from '@mui/x-data-grid'
 import { Box, Typography, Paper } from '@mui/material'
 import useFormDataApi from '../hooks/UseFormDataApi'
-import generateTableColumns from './generateTableColumns'
+import GenerateTableColumns from './GenerateTableColumns'
 import logoUrl from '../assets/vial-logo.svg'
 
 export const FormDataComponent = () => {
   const [formData, loading] = useFormDataApi()
-  const columns = generateTableColumns()
+
+  const handleCreateQuery = (queryData: {
+    title: string
+    description: string
+    formDataId: string
+  }) => {
+    console.log('Creating query:', queryData)
+    // TODO: Logic for creating a query
+  }
+
+  const columns = GenerateTableColumns({
+    onCreateQuery: handleCreateQuery, // Pass the function here
+  })
 
   const rows = formData.map((data, index) => ({
     id: index + 1,
