@@ -1,6 +1,6 @@
 import React from 'react'
 import { GridColDef } from '@mui/x-data-grid'
-import TypographyCell from './TypographyCell'
+import TextDisplayCell from './TextDisplayCell'
 import { Box, IconButton, Tooltip } from '@mui/material'
 import { Add, CheckCircle, HelpOutline } from '@mui/icons-material'
 
@@ -8,20 +8,20 @@ const handleCreateQuery = () => {
   console.log('Create query for row:')
 }
 
-const getColumns = (): GridColDef[] => [
+const generateTableColumns = (): GridColDef[] => [
   {
     field: 'question',
     headerName: 'Question',
     minWidth: 200,
     flex: 1,
-    renderCell: params => <TypographyCell value={params.value} />,
+    renderCell: params => <TextDisplayCell value={params.value} />,
   },
   {
     field: 'answer',
     headerName: 'Answer',
     minWidth: 200,
     flex: 1,
-    renderCell: params => <TypographyCell value={params.value} />,
+    renderCell: params => <TextDisplayCell value={params.value} />,
   },
   {
     field: 'queries',
@@ -56,4 +56,4 @@ const getColumns = (): GridColDef[] => [
   },
 ]
 
-export default getColumns
+export default generateTableColumns

@@ -5,7 +5,7 @@ interface TypographyCellProps {
   value: string
 }
 
-const TypographyCell: React.FC<TypographyCellProps> = ({ value }) => (
+const TextDisplayCell: React.FC<TypographyCellProps> = ({ value }) => (
   <Typography
     variant="body2"
     sx={{
@@ -18,4 +18,4 @@ const TypographyCell: React.FC<TypographyCellProps> = ({ value }) => (
   </Typography>
 )
 
-export default TypographyCell
+export default TextDisplayCell

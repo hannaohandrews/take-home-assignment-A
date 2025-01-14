@@ -2,12 +2,12 @@ import React from 'react'
 import { DataGrid } from '@mui/x-data-grid'
 import { Box, Typography, Paper } from '@mui/material'
 import useFormDataApi from '../hooks/UseFormDataApi'
-import getColumns from './GetColumns'
+import generateTableColumns from './generateTableColumns'
 import logoUrl from '../assets/vial-logo.svg'
 
 export const FormDataComponent = () => {
   const [formData, loading] = useFormDataApi()
-  const columns = getColumns()
+  const columns = generateTableColumns()
 
   const rows = formData.map((data, index) => ({
     id: index + 1,
