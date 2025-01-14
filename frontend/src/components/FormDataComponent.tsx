@@ -27,6 +27,7 @@ export const FormDataComponent = () => {
           marginTop: 2,
           marginBottom: 2,
           lineHeight: '1.36em',
+          color: '#454754',
         }}
       >
         Form Data
@@ -48,7 +49,7 @@ export const FormDataComponent = () => {
             '& .MuiDataGrid-columnHeaderTitle': {
               fontSize: '16px',
               fontWeight: 'bold',
-              color: 'navy',
+              color: 'black',
             },
             '& .MuiDataGrid-cell': {
               wordWrap: 'break-word',
