@@ -1,64 +1,71 @@
-import React, { useState, useEffect } from 'react'
-import api from '../services/api'
-import { DataGrid, GridColDef } from '@mui/x-data-grid'
-import Paper from '@mui/material/Paper'
-
-interface Query {
-  id: string
-  title: string
-  description?: string
-  status: 'OPEN' | 'RESOLVED'
-}
-
-interface FormData {
-  id: number
-  question: string
-  answer: string
-  query: Query[]
-}
+import React from 'react'
+import { DataGrid } from '@mui/x-data-grid'
+import { Box, Typography, Paper } from '@mui/material'
+import useFormDataApi from '../hooks/UseFormDataApi'
+import getColumns from './GetColumns'
+import logoUrl from '../assets/vial-logo.svg'
 
 export const FormDataComponent = () => {
-  const [formData, setFormData] = useState<FormData[]>([])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await api.get('/form-data')
-        setFormData(response.data.data.formData)
-      } catch (err) {
-        console.error('Error fetching form data', err)
-      }
-    }
-    fetchData()
-  }, [])
-
-  const columns: GridColDef[] = [
-    { field: 'question', headerName: 'Question', width: 700 },
-    { field: 'answer', headerName: 'Answer', width: 600 },
-    {
-      field: 'queries',
-      headerName: 'Queries',
-      width: 100,
-    },
-  ]
+  const [formData, loading] = useFormDataApi()
+  const columns = getColumns()
 
   const rows = formData.map((data, index) => ({
     id: index + 1,
     question: data.question,
     answer: data.answer,
+    queries: data.query,
   }))
 
   return (
-    <div>
-      <h1>Form Data</h1>
-      <Paper sx={{ height: '100%', width: '100%' }}>
+    <Box sx={{ padding: 4 }}>
+      <img src={logoUrl} alt="Vial Logo" />
+      <Typography
+        variant="h4"
+        sx={{
+          fontSize: '45px',
+          fontWeight: 600,
+          marginTop: 2,
+          marginBottom: 2,
+          lineHeight: '1.36em',
+        }}
+      >
+        Form Data
+      </Typography>
+      <Paper
+        sx={{ height: '100%', width: '100%', boxShadow: 3, borderRadius: 3 }}
+      >
         <DataGrid
           rows={rows}
           columns={columns}
           pageSizeOptions={[5, 10]}
-          sx={{ border: 0 }}
+          loading={loading}
+          sx={{
+            '& .MuiDataGrid-columnHeaders': {
+              color: 'black',
+              fontWeight: '900',
+              backgroundColor: '#1976d2',
+            },
+            '& .MuiDataGrid-columnHeaderTitle': {
+              fontSize: '16px',
+              fontWeight: 'bold',
+              color: 'navy',
+            },
+            '& .MuiDataGrid-cell': {
+              wordWrap: 'break-word',
+              overflowWrap: 'break-word',
+              whiteSpace: 'normal',
+              padding: '8px 16px ',
+              borderBottom: '1px solid #ddd',
+            },
+            '& .MuiDataGrid-root': {
+              fontFamily: '"Poppins", sans-serif',
+            },
+            '& .MuiDataGrid-columnSeparator': {
+              visibility: 'hidden',
+            },
+          }}
         />
       </Paper>
-    </div>
+    </Box>
   )
 }

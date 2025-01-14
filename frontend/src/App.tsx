@@ -1,11 +1,19 @@
 import React from 'react'
+import { CssBaseline, ThemeProvider, createTheme } from '@mui/material'
 import { FormDataComponent } from './components/FormDataComponent'
 
-function App() {
+const theme = createTheme({
+  typography: {
+    fontFamily: '"Poppins", sans-serif',
+  },
+})
+
+export const App = () => {
   return (
-    <div className="App">
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
       <FormDataComponent />
-    </div>
+    </ThemeProvider>
   )
 }
 
