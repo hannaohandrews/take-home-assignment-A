@@ -12,7 +12,7 @@ interface FormData {
   id: number
   question: string
   answer: string
-  query: Query[]
+  queries: Query[]
 }
 
 const useFormDataApi = (): [FormData[], boolean] => {

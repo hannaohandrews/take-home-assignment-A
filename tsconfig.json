@@ -16,7 +16,8 @@
     "declarationMap": true,
     "inlineSourceMap": true,
     "inlineSources": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "jsx": "react-jsx" // For React 17+
   },
   "include": ["**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]

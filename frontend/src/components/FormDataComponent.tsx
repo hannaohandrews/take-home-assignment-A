@@ -13,7 +13,7 @@ export const FormDataComponent = () => {
     id: index + 1,
     question: data.question,
     answer: data.answer,
-    queries: data.query,
+    queries: data.queries || null,
   }))
 
   return (
