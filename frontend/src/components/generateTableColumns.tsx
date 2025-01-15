@@ -33,33 +33,32 @@ const GenerateTableColumns = ({
       headerName: 'Queries',
       width: 150,
       renderCell: params => {
-        const hasQuery = params.value && params.value.length > 0
-        const queryStatus = hasQuery ? params.value[0].status : null
+        const { value: queries, row } = params
+        const hasQuery = queries && queries.length > 0
+        const query = hasQuery ? queries[0] : null
+        const queryStatus = query?.status
 
         return (
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             {!hasQuery ? (
               <Tooltip title="Create Query">
-                <IconButton
-                  onClick={() => onCreateQuery(params.row)}
-                  color="primary"
-                >
+                <IconButton onClick={() => onCreateQuery(row)} color="primary">
                   <Add />
                 </IconButton>
               </Tooltip>
             ) : (
               <Tooltip
                 title={
-                  queryStatus === 'OPEN' ? 'Query is OPEN' : 'Query is RESOLVED'
+                  queryStatus === 'OPEN'
+                    ? 'Query is OPEN'
+                    : queryStatus === 'RESOLVED'
+                    ? 'Query is RESOLVED'
+                    : 'Unknown Query Status'
                 }
               >
                 <IconButton
                   color={queryStatus === 'OPEN' ? 'error' : 'success'}
-                  onClick={() => {
-                    if (queryStatus === 'OPEN') {
-                      onOpenStatusRowData(params.row.queries[0])
-                    }
-                  }}
+                  onClick={() => onOpenStatusRowData(query)}
                 >
                   {queryStatus === 'OPEN' ? <HelpOutline /> : <CheckCircle />}
                 </IconButton>
@@ -71,5 +70,4 @@ const GenerateTableColumns = ({
     },
   ]
 }
-
 export default GenerateTableColumns

@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Modal, Button, Typography } from '@mui/material'
 import useQueriesApi from '../hooks/useQueriesApi'
 
-interface OpenStatusModalProps {
+interface SavedQueryModalProps {
   open: boolean
   onClose: () => void
   queryDetails: {
@@ -16,13 +16,14 @@ interface OpenStatusModalProps {
   onUpdateStatus: (queryId: string) => void
 }
 
-const OpenStatusModal = ({
+const SavedQueryModal = ({
   open,
   onClose,
   queryDetails,
   onUpdateStatus,
-}: OpenStatusModalProps) => {
-  const { queryId, title, description, createdAt, updatedAt } = queryDetails
+}: SavedQueryModalProps) => {
+  const { queryId, status, title, description, createdAt, updatedAt } =
+    queryDetails
   const { updateStatusQuery } = useQueriesApi()
 
   const handleResolve = async () => {
@@ -67,7 +68,9 @@ const OpenStatusModal = ({
           >
             Query: <span style={{ fontWeight: 400 }}>{title}</span>
           </Typography>
-
+          <Typography variant="body1" sx={{ marginTop: 2, fontWeight: 500 }}>
+            <strong>Status: </strong> {status}
+          </Typography>
           <Typography variant="body1" sx={{ marginTop: 2, fontWeight: 500 }}>
             <strong>Description:</strong> {description}
           </Typography>
@@ -94,16 +97,20 @@ const OpenStatusModal = ({
             marginTop: 3,
           }}
         >
-          <Button onClick={onClose} color="secondary">
-            Cancel
+          <Button onClick={onClose} color="warning">
+            CLOSE
           </Button>
-          <Button variant="contained" onClick={handleResolve}>
-            Resolve
-          </Button>
+          {status === 'OPEN' ? (
+            <Button variant="contained" onClick={handleResolve}>
+              Resolve
+            </Button>
+          ) : (
+            ''
+          )}
         </Box>
       </Box>
     </Modal>
   )
 }
 
-export default OpenStatusModal
+export default SavedQueryModal

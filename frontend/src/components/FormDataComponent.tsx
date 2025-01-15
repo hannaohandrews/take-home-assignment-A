@@ -5,7 +5,7 @@ import useFormDataApi from '../hooks/useFormDataApi'
 import GenerateTableColumns from './GenerateTableColumns'
 import logoUrl from '../assets/vial-logo.svg'
 import CreateQueryModal from './CreateQueryModal'
-import OpenStatusModal from './OpenStatusModal'
+import SavedQueryModal from './SavedQueryModal'
 import useQueriesApi from '../hooks/useQueriesApi'
 
 export const FormDataComponent = () => {
@@ -122,7 +122,7 @@ export const FormDataComponent = () => {
         />
       </Paper>
       {openStatusModal && queryDetails && (
-        <OpenStatusModal
+        <SavedQueryModal
           open={openStatusModal}
           onClose={handleCloseStatusModal}
           queryDetails={queryDetails}
