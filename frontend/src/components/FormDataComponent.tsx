@@ -1,30 +1,42 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { DataGrid } from '@mui/x-data-grid'
 import { Box, Typography, Paper } from '@mui/material'
-import useFormDataApi from '../hooks/UseFormDataApi'
+import useFormDataApi from '../hooks/useFormDataApi'
 import GenerateTableColumns from './GenerateTableColumns'
 import logoUrl from '../assets/vial-logo.svg'
+import CreateQueryModal from './CreateQueryModal'
 
 export const FormDataComponent = () => {
   const [formData, loading] = useFormDataApi()
+  const [openModal, setOpenModal] = useState(false)
+  const [selectedRow, setSelectedRow] = useState<any>(null)
 
-  const handleCreateQuery = (queryData: {
+  const handleCloseModal = () => {
+    setOpenModal(false)
+    setSelectedRow(null)
+  }
+
+  const handleCreateQuery = (formData: {
     title: string
     description: string
     formDataId: string
   }) => {
-    console.log('Creating query:', queryData)
-    // TODO: Logic for creating a query
+    console.log('Query created:', formData)
+    handleCloseModal()
   }
 
   const columns = GenerateTableColumns({
-    onCreateQuery: handleCreateQuery, // Pass the function here
+    onCreateQuery: (rowData: any) => {
+      setSelectedRow(rowData)
+      setOpenModal(true)
+    },
   })
 
-  const rows = formData.map((data, index) => ({
+  const rows = formData?.map((data, index) => ({
     id: index + 1,
     question: data.question,
     answer: data.answer,
+    formDataId: data.id,
     queries: data.queries || null,
   }))
 
@@ -79,6 +91,14 @@ export const FormDataComponent = () => {
           }}
         />
       </Paper>
+      {openModal && (
+        <CreateQueryModal
+          open={openModal}
+          onClose={handleCloseModal}
+          onSubmit={handleCreateQuery}
+          rowData={selectedRow}
+        />
+      )}
     </Box>
   )
 }

@@ -1,34 +1,32 @@
 import React, { useState } from 'react'
 import { Box, Modal, TextField, Button, Typography } from '@mui/material'
+import useQueriesApi from '../hooks/useQueriesApi'
 
 interface CreateQueryModalProps {
   open: boolean
   onClose: () => void
-  onSubmit: (queryData: {
+  onSubmit: (formData: {
     title: string
     description: string
     formDataId: string
   }) => void
-  question: string
-  formDataId: string
+  rowData: any
 }
 
 const CreateQueryModal: React.FC<CreateQueryModalProps> = ({
   open,
   onClose,
   onSubmit,
-  question,
-  formDataId,
+  rowData,
 }) => {
   const [description, setDescription] = useState('')
 
   const handleSubmit = () => {
     onSubmit({
-      title: question,
+      title: rowData?.question || '',
       description,
-      formDataId,
+      formDataId: rowData?.formDataId || '',
     })
-    onClose()
   }
 
   return (

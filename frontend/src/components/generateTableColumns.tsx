@@ -1,31 +1,16 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { GridColDef } from '@mui/x-data-grid'
 import TextDisplayCell from './TextDisplayCell'
 import { Box, IconButton, Tooltip } from '@mui/material'
 import { Add, CheckCircle, HelpOutline } from '@mui/icons-material'
-import CreateQueryModal from './CreateQueryModal'
 
 interface GenerateTableColumnsProps {
-  onCreateQuery: (queryData: {
-    title: string
-    description: string
-    formDataId: string
-  }) => void
+  onCreateQuery: (rowData: any) => void
 }
 
 const GenerateTableColumns = ({
   onCreateQuery,
 }: GenerateTableColumnsProps): GridColDef[] => {
-  const [openModal, setOpenModal] = useState(false)
-
-  const handleCreateQuery = () => {
-    setOpenModal(true)
-  }
-
-  const handleCloseModal = () => {
-    setOpenModal(false)
-  }
-
   return [
     {
       field: 'question',
@@ -53,7 +38,10 @@ const GenerateTableColumns = ({
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             {!hasQuery ? (
               <Tooltip title="Create Query">
-                <IconButton onClick={handleCreateQuery} color="primary">
+                <IconButton
+                  onClick={() => onCreateQuery(params.row)}
+                  color="primary"
+                >
                   <Add />
                 </IconButton>
               </Tooltip>
@@ -73,24 +61,6 @@ const GenerateTableColumns = ({
           </Box>
         )
       },
-    },
-    {
-      field: 'modal',
-      renderCell: () => (
-        <CreateQueryModal
-          open={openModal}
-          onClose={handleCloseModal}
-          onSubmit={function (queryData: {
-            title: string
-            description: string
-            formDataId: string
-          }): void {
-            throw new Error('Function not implemented.')
-          }}
-          question={''}
-          formDataId={''}
-        />
-      ),
     },
   ]
 }
