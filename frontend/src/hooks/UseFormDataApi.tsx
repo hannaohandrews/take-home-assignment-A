@@ -9,6 +9,8 @@ interface Query {
 }
 
 interface FormData {
+  status: any
+  description: any
   id: number
   question: string
   answer: string

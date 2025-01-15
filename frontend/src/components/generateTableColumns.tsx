@@ -6,10 +6,12 @@ import { Add, CheckCircle, HelpOutline } from '@mui/icons-material'
 
 interface GenerateTableColumnsProps {
   onCreateQuery: (rowData: any) => void
+  onOpenStatusRowData: (rowData: any) => void
 }
 
 const GenerateTableColumns = ({
   onCreateQuery,
+  onOpenStatusRowData,
 }: GenerateTableColumnsProps): GridColDef[] => {
   return [
     {
@@ -53,6 +55,11 @@ const GenerateTableColumns = ({
               >
                 <IconButton
                   color={queryStatus === 'OPEN' ? 'error' : 'success'}
+                  onClick={() => {
+                    if (queryStatus === 'OPEN') {
+                      onOpenStatusRowData(params.row.queries[0])
+                    }
+                  }}
                 >
                   {queryStatus === 'OPEN' ? <HelpOutline /> : <CheckCircle />}
                 </IconButton>

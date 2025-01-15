@@ -12,6 +12,20 @@ interface Query {
 const useQueriesApi = () => {
   const [error, setError] = useState<string | null>(null)
 
+  const updateStatusQuery = async (
+    queryId: string,
+    status: 'OPEN' | 'RESOLVED'
+  ): Promise<Query | null> => {
+    try {
+      const response = await api.put(`/queries/${queryId}`, { status })
+      return response.data
+    } catch (err) {
+      setError('Failed to update query status. Please try again.')
+      console.error('Error updating query status:', err)
+      return null
+    }
+  }
+
   const createQuery = async (payload: {
     title: string
     description: string
@@ -29,6 +43,7 @@ const useQueriesApi = () => {
 
   return {
     createQuery,
+    updateStatusQuery,
     error,
   }
 }

@@ -19,10 +19,11 @@ const CreateQueryModal: React.FC<CreateQueryModalProps> = ({
   rowData,
 }) => {
   const [description, setDescription] = useState('')
+  const title = rowData?.question
 
   const handleSubmit = () => {
     onSubmit({
-      title: rowData?.question || '',
+      title: title || '',
       description,
       formDataId: rowData?.formDataId || '',
     })
@@ -35,7 +36,7 @@ const CreateQueryModal: React.FC<CreateQueryModalProps> = ({
       slotProps={{
         backdrop: {
           sx: {
-            backgroundColor: 'rgba(0, 0, 0, 0.05)',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
           },
         },
       }}
@@ -54,7 +55,7 @@ const CreateQueryModal: React.FC<CreateQueryModalProps> = ({
         }}
       >
         <Typography variant="h6" mb={2}>
-          Create a Query
+          Query: {title}
         </Typography>
         <TextField
           fullWidth

@@ -5,17 +5,25 @@ import useFormDataApi from '../hooks/useFormDataApi'
 import GenerateTableColumns from './GenerateTableColumns'
 import logoUrl from '../assets/vial-logo.svg'
 import CreateQueryModal from './CreateQueryModal'
+import OpenStatusModal from './OpenStatusModal'
 import useQueriesApi from '../hooks/useQueriesApi'
 
 export const FormDataComponent = () => {
   const [formData, loading, refetch] = useFormDataApi()
   const [openModal, setOpenModal] = useState(false)
   const [selectedRow, setSelectedRow] = useState<any>(null)
-  const { createQuery } = useQueriesApi()
+  const [openStatusModal, setOpenStatusModal] = useState(false)
+  const [queryDetails, setQueryDetails] = useState<any>(null)
+  const { createQuery, updateStatusQuery } = useQueriesApi()
 
   const handleCloseModal = () => {
     setOpenModal(false)
     setSelectedRow(null)
+  }
+
+  const handleCloseStatusModal = () => {
+    setOpenStatusModal(false)
+    setQueryDetails(null)
   }
 
   const handleCreateQuery = async (formData: {
@@ -28,10 +36,27 @@ export const FormDataComponent = () => {
     handleCloseModal()
   }
 
+  const handleResolveQuery = async (queryId: string) => {
+    await updateStatusQuery(queryId, 'RESOLVED')
+    refetch()
+    handleCloseStatusModal()
+  }
+
   const columns = GenerateTableColumns({
     onCreateQuery: (rowData: any) => {
       setSelectedRow(rowData)
       setOpenModal(true)
+    },
+    onOpenStatusRowData: (rowData: any) => {
+      setQueryDetails({
+        queryId: rowData.id,
+        status: rowData.status,
+        description: rowData.description,
+        title: rowData.title,
+        createdAt: rowData.createdAt,
+        updatedAt: rowData.updatedAt,
+      })
+      setOpenStatusModal(true)
     },
   })
 
@@ -41,6 +66,8 @@ export const FormDataComponent = () => {
     answer: data.answer,
     formDataId: data.id,
     queries: data.queries || null,
+    status: data.status,
+    description: data.description,
   }))
 
   return (
@@ -57,7 +84,7 @@ export const FormDataComponent = () => {
           color: '#454754',
         }}
       >
-        Form Data
+        Query Management Application
       </Typography>
       <Paper
         sx={{ height: '100%', width: '100%', boxShadow: 3, borderRadius: 3 }}
@@ -94,6 +121,14 @@ export const FormDataComponent = () => {
           }}
         />
       </Paper>
+      {openStatusModal && queryDetails && (
+        <OpenStatusModal
+          open={openStatusModal}
+          onClose={handleCloseStatusModal}
+          queryDetails={queryDetails}
+          onUpdateStatus={handleResolveQuery}
+        />
+      )}
       {openModal && (
         <CreateQueryModal
           open={openModal}
