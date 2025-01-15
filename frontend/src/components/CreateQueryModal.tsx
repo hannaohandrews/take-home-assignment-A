@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Box, Modal, TextField, Button, Typography } from '@mui/material'
-import useQueriesApi from '../hooks/useQueriesApi'
 
 interface CreateQueryModalProps {
   open: boolean

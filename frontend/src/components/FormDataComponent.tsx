@@ -5,23 +5,26 @@ import useFormDataApi from '../hooks/useFormDataApi'
 import GenerateTableColumns from './GenerateTableColumns'
 import logoUrl from '../assets/vial-logo.svg'
 import CreateQueryModal from './CreateQueryModal'
+import useQueriesApi from '../hooks/useQueriesApi'
 
 export const FormDataComponent = () => {
-  const [formData, loading] = useFormDataApi()
+  const [formData, loading, refetch] = useFormDataApi()
   const [openModal, setOpenModal] = useState(false)
   const [selectedRow, setSelectedRow] = useState<any>(null)
+  const { createQuery } = useQueriesApi()
 
   const handleCloseModal = () => {
     setOpenModal(false)
     setSelectedRow(null)
   }
 
-  const handleCreateQuery = (formData: {
+  const handleCreateQuery = async (formData: {
     title: string
     description: string
     formDataId: string
   }) => {
-    console.log('Query created:', formData)
+    await createQuery(formData)
+    refetch()
     handleCloseModal()
   }
 
