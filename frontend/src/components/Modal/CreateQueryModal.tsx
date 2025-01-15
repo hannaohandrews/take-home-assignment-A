@@ -36,7 +36,7 @@ const CreateQueryModal: React.FC<CreateQueryModalProps> = ({
       slotProps={{
         backdrop: {
           sx: {
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            backgroundColor: 'rgba(0, 0, 0, 0.7)',
           },
         },
       }}
@@ -49,14 +49,24 @@ const CreateQueryModal: React.FC<CreateQueryModalProps> = ({
           transform: 'translate(-50%, -50%)',
           width: 700,
           bgcolor: 'background.paper',
-          boxShadow: 2,
-          p: 4,
+          boxShadow: 24,
           borderRadius: 2,
+          padding: 4,
+          maxHeight: '80vh',
+          overflowY: 'auto',
         }}
       >
-        <Typography variant="h6" mb={2}>
-          Query: {title}
+        <Typography
+          variant="h6"
+          sx={{
+            fontWeight: 600,
+            color: 'text.primary',
+            mb: 3,
+          }}
+        >
+          Create a Query: {title}
         </Typography>
+
         <TextField
           fullWidth
           label="Description"
@@ -65,14 +75,47 @@ const CreateQueryModal: React.FC<CreateQueryModalProps> = ({
           value={description}
           onChange={e => setDescription(e.target.value)}
           variant="outlined"
-          sx={{ mb: 2 }}
+          sx={{
+            mb: 3,
+            '& .MuiOutlinedInput-root': {
+              borderRadius: 2,
+            },
+            '& .MuiInputLabel-root': {
+              fontWeight: 500,
+            },
+          }}
           autoFocus
         />
-        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Button onClick={onClose} color="secondary">
+
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 2 }}>
+          <Button
+            onClick={onClose}
+            color="error"
+            variant="outlined"
+            sx={{
+              flex: 1,
+              fontWeight: 600,
+              borderRadius: 2,
+              padding: '8px 16px',
+            }}
+          >
             Cancel
           </Button>
-          <Button onClick={handleSubmit} variant="contained">
+
+          <Button
+            onClick={handleSubmit}
+            variant="contained"
+            sx={{
+              flex: 1,
+              fontWeight: 600,
+              borderRadius: 2,
+              padding: '8px 16px',
+              backgroundColor: '#28a745',
+              '&:hover': {
+                backgroundColor: '#218838',
+              },
+            }}
+          >
             Submit
           </Button>
         </Box>

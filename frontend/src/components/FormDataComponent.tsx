@@ -4,8 +4,8 @@ import { Box, Typography, Paper } from '@mui/material'
 import useFormDataApi from '../hooks/useFormDataApi'
 import GenerateTableColumns from './GenerateTableColumns'
 import logoUrl from '../assets/vial-logo.svg'
-import CreateQueryModal from './CreateQueryModal'
-import SavedQueryModal from './SavedQueryModal'
+import CreateQueryModal from './Modal/CreateQueryModal'
+import SavedQueryModal from './Modal/SavedQueryModal'
 import useQueriesApi from '../hooks/useQueriesApi'
 
 export const FormDataComponent = () => {
@@ -110,6 +110,7 @@ export const FormDataComponent = () => {
               overflowWrap: 'break-word',
               whiteSpace: 'normal',
               padding: '8px 16px ',
+
               borderBottom: '1px solid #ddd',
             },
             '& .MuiDataGrid-root': {
@@ -117,6 +118,9 @@ export const FormDataComponent = () => {
             },
             '& .MuiDataGrid-columnSeparator': {
               visibility: 'hidden',
+            },
+            '& .MuiDataGrid-selectedRowCount': {
+              display: 'none',
             },
           }}
         />
