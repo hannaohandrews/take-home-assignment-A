@@ -84,7 +84,7 @@ The backend is built with **Node.js**, while the frontend uses **React** and **T
        "title": "string",
        "description": "string",
        "formDataId": "string",
-       "status": "string" // e.g., "OPEN" or "RESOLVED"
+       "status": "string"
      }
      ```
    - **Response**: Returns the updated query object.
@@ -131,6 +131,7 @@ curl --location 'http://127.0.0.1:8080/form-data' --header 'Content-Type: applic
   - Add **End-to-End (E2E) Testing** to ensure seamless workflows and robust user interactions.
 
 - **Future Additions**
-- Add a functional Delete button to remove queries associated with form data.
-- Provide notifications (via email or text) for users when their queries are resolved.
-- Leverage the one-to-many relationship to enable multiple queries per question and display them effectively.
+
+  - Add a functional Delete button to remove queries associated with form data.
+  - Provide notifications (via email or text) for users when their queries are resolved.
+  - Leverage the one-to-many relationship to enable multiple queries per question and display them effectively.
