@@ -41,9 +41,10 @@ curl --location 'http://127.0.0.1:8080/form-data' --header 'Content-Type: applic
   - **`createdAt`** (Date, required.)
   - **`updatedAt`** (Date, required.)
   - **`status`** (String, possible values (OPEN, RESOLVED)
-- I also added `formDataId` as a foreign key to establish a relationship with the existing `FormData` model.
-- A one-to-many relationship was created between `FormData` and `Query`, allowing each form data entry to associate with multiple queries.  
-  _(This approach is more future-proof in case additional queries need to be associated with a single form data entry.)_
+  - **`formDataId`** the relational foreign key id of the formData
+  - **`FormData`**
+  - A one-to-many relationship was created between `FormData` and `Query`, allowing each form data entry to associate with multiple queries.  
+    _(This approach is more future-proof in case additional queries need to be associated with a single form data entry.)_
 
 ### Routes
 
@@ -129,6 +130,10 @@ curl --location 'http://127.0.0.1:8080/form-data' --header 'Content-Type: applic
 
   - Implement **Unit Testing** to verify the functionality of individual components and functions.
   - Add **End-to-End (E2E) Testing** to ensure seamless workflows and robust user interactions.
+
+  - **Global State Management**
+
+  - Implement a global state management solution such as Redux or the Context API. Currently, state is managed locally and passed between components, which can lead to inconsistencies and make the application harder to maintain. Adopting a global state management approach will enhance consistency, improve scalability, and simplify data flow across the application.
 
 - **Future Additions**
 
