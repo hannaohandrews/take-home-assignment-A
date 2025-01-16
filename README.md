@@ -10,16 +10,37 @@ The backend is built with **Node.js**, while the frontend uses **React** and **T
 ![open-Query.png](./assets/openQuery.png)
 ![resolved-Query.png](./assets/resolvedQuery.png)
 
+## Running the project Locally
+
+### Running FE
+
+- Navigate to the `frontend` folder and run `npm start` and see that it's running in development mode.Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+### Running BE
+
+- copy the .env.example file into a .env file
+- `docker-compose build`
+- `docker-compose up`
+- `npm run migrate`
+- `npm run seed`
+- if you view your database, you should be able to see a populated form data table
+- running the following in your terminal will perform a GET request to fetch the form data
+
+```bash
+curl --location 'http://127.0.0.1:8080/form-data' --header 'Content-Type: application/json'
+```
+
 ## Backend Overview
 
 ### Database
 
 - In the `schema.prisma` file, I introduced a new model called `Query` with the following fields:
-  - **`title`**
-  - **`description`**
-  - **`createdAt`**
-  - **`updatedAt`**
-  - **`status`** (possible values: `OPEN`, `RESOLVED`)
+  - **`id`** (UUID)
+  - **`title`** (String, required)
+  - **`description`** (String, optional)
+  - **`createdAt`** (Date, required.)
+  - **`updatedAt`** (Date, required.)
+  - **`status`** (String, possible values (OPEN, RESOLVED)
 - I also added `formDataId` as a foreign key to establish a relationship with the existing `FormData` model.
 - A one-to-many relationship was created between `FormData` and `Query`, allowing each form data entry to associate with multiple queries.  
   _(This approach is more future-proof in case additional queries need to be associated with a single form data entry.)_
@@ -97,30 +118,6 @@ The backend is built with **Node.js**, while the frontend uses **React** and **T
    - **Path Parameter**:
      - `id` (string): The ID of the query to delete.
    - **Response**: Returns a success message or confirmation of deletion.
-
-## Running FE
-
-1. Navigate to the `frontend` folder:
-
-   ```bash
-   cd frontend
-   ```
-
-2. run `npm start` and see that it's running in development mode.Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-## Running BE
-
-- copy the .env.example file into a .env file
-- `docker-compose build`
-- `docker-compose up`
-- `npm run migrate`
-- `npm run seed`
-- if you view your database, you should be able to see a populated form data table
-- running the following in your terminal will perform a GET request to fetch the form data
-
-```bash
-curl --location 'http://127.0.0.1:8080/form-data' --header 'Content-Type: application/json'
-```
 
 ## Future Improvements
 

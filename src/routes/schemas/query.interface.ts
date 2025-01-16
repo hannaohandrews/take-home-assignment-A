@@ -8,7 +8,6 @@ export interface IQuery {
   formDataId: string
 }
 
-// payload of the request
 export interface IQueryBody {
   title: string
   description?: string

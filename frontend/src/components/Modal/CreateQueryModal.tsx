@@ -116,7 +116,7 @@ const CreateQueryModal: React.FC<CreateQueryModalProps> = ({
               },
             }}
           >
-            Submit
+            Create
           </Button>
         </Box>
       </Box>
