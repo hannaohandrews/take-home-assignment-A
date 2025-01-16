@@ -6,6 +6,9 @@ Hello! I'm Hanna, and this is my Vial Query Management Application.
 The backend is built with **Node.js**, while the frontend uses **React** and **TypeScript**.
 
 ![query-management-app.png](./assets/screenshot1.png)
+![create-a-new-query.png](./assets/newQuery.png)
+![open-Query.png](./assets/openQuery.png)
+![resolved-Query.png](./assets/resolvedQuery.png)
 
 ## Backend Overview
 
