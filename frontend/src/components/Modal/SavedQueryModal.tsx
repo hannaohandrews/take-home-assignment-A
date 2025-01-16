@@ -26,6 +26,25 @@ interface SavedQueryModalProps {
   }
   onUpdateStatus: (queryId: string) => void
 }
+const statusStyles = (status: string) => {
+  const styles = {
+    RESOLVED: {
+      color: '#155724',
+      backgroundColor: '#d4edda',
+    },
+    OPEN: {
+      color: '#721c24',
+      backgroundColor: '#f8d7da',
+    },
+    default: {
+      color: 'text.primary',
+      backgroundColor: 'transparent',
+    },
+  }
+  return styles[status] || styles.default
+}
+
+const formatDate = (date: string) => new Date(date).toLocaleString()
 
 const SavedQueryModal = ({
   open,
@@ -97,21 +116,10 @@ const SavedQueryModal = ({
                     variant="body1"
                     sx={{
                       fontWeight: 500,
-                      color:
-                        status === 'RESOLVED'
-                          ? '#155724'
-                          : status === 'OPEN'
-                          ? '#721c24'
-                          : 'text.primary',
-                      backgroundColor:
-                        status === 'RESOLVED'
-                          ? '#d4edda'
-                          : status === 'OPEN'
-                          ? '#f8d7da'
-                          : 'transparent',
                       padding: '4px 8px',
                       borderRadius: '4px',
                       display: 'inline-block',
+                      ...statusStyles(status),
                     }}
                   >
                     {status}
@@ -128,13 +136,13 @@ const SavedQueryModal = ({
                 <TableCell>
                   <strong>Created At:</strong>
                 </TableCell>
-                <TableCell>{new Date(createdAt).toLocaleString()}</TableCell>
+                <TableCell>{formatDate(createdAt)}</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>
                   <strong>Updated At:</strong>
                 </TableCell>
-                <TableCell>{new Date(updatedAt).toLocaleString()}</TableCell>
+                <TableCell>{formatDate(updatedAt)}</TableCell>
               </TableRow>
             </TableBody>
           </Table>

@@ -5,6 +5,8 @@
 Hello! I'm Hanna, and this is my Vial Query Management Application.
 The backend is built with **Node.js**, while the frontend uses **React** and **TypeScript**.
 
+![query-management-app.png](./assets/screenshot1.png)
+
 ## Backend Overview
 
 ### Database
@@ -16,7 +18,8 @@ The backend is built with **Node.js**, while the frontend uses **React** and **T
   - **`updatedAt`**
   - **`status`** (possible values: `OPEN`, `RESOLVED`)
 - I also added `formDataId` as a foreign key to establish a relationship with the existing `FormData` model.
-- A one-to-many relationship was created between `FormData` and `Query`, allowing each form data entry to associate with multiple queries.
+- A one-to-many relationship was created between `FormData` and `Query`, allowing each form data entry to associate with multiple queries.  
+  _(This approach is more future-proof in case additional queries need to be associated with a single form data entry.)_
 
 ### Routes
 
@@ -123,5 +126,11 @@ curl --location 'http://127.0.0.1:8080/form-data' --header 'Content-Type: applic
   - Integrate tools such as DataDog or Looker to monitor application performance, track server-client interactions, and analyze database activity.
 
 - **Testing Enhancements**
+
   - Implement **Unit Testing** to verify the functionality of individual components and functions.
   - Add **End-to-End (E2E) Testing** to ensure seamless workflows and robust user interactions.
+
+- **Future Additions**
+- Add a functional Delete button to remove queries associated with form data.
+- Provide notifications (via email or text) for users when their queries are resolved.
+- Leverage the one-to-many relationship to enable multiple queries per question and display them effectively.

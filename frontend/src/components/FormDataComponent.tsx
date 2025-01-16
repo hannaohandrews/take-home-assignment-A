@@ -8,7 +8,7 @@ import CreateQueryModal from './Modal/CreateQueryModal'
 import SavedQueryModal from './Modal/SavedQueryModal'
 import useQueriesApi from '../hooks/useQueriesApi'
 
-export const FormDataComponent = () => {
+const FormDataComponent = () => {
   const [formData, loading, refetch] = useFormDataApi()
   const [openModal, setOpenModal] = useState(false)
   const [selectedRow, setSelectedRow] = useState<any>(null)
@@ -16,12 +16,12 @@ export const FormDataComponent = () => {
   const [queryDetails, setQueryDetails] = useState<any>(null)
   const { createQuery, updateStatusQuery } = useQueriesApi()
 
-  const handleCloseModal = () => {
+  const handleCloseNewQueryModal = () => {
     setOpenModal(false)
     setSelectedRow(null)
   }
 
-  const handleCloseStatusModal = () => {
+  const handleCloseSavedQueryModal = () => {
     setOpenStatusModal(false)
     setQueryDetails(null)
   }
@@ -32,14 +32,14 @@ export const FormDataComponent = () => {
     formDataId: string
   }) => {
     await createQuery(formData)
-    refetch()
-    handleCloseModal()
+    refetch() // this helps to refresh the page with the new status icon (+ to OPEN)
+    handleCloseNewQueryModal()
   }
 
   const handleResolveQuery = async (queryId: string) => {
     await updateStatusQuery(queryId, 'RESOLVED')
-    refetch()
-    handleCloseStatusModal()
+    refetch() // this helps to change the status icon from OPEN to RESOLVED
+    handleCloseSavedQueryModal()
   }
 
   const columns = GenerateTableColumns({
@@ -78,8 +78,8 @@ export const FormDataComponent = () => {
         sx={{
           fontSize: '45px',
           fontWeight: 600,
-          marginTop: 2,
-          marginBottom: 2,
+          mt: 2,
+          mb: 2,
           lineHeight: '1.36em',
           color: '#454754',
         }}
@@ -109,7 +109,7 @@ export const FormDataComponent = () => {
               wordWrap: 'break-word',
               overflowWrap: 'break-word',
               whiteSpace: 'normal',
-              padding: '8px 16px ',
+              padding: '8px 16px',
 
               borderBottom: '1px solid #ddd',
             },
@@ -128,7 +128,7 @@ export const FormDataComponent = () => {
       {openStatusModal && queryDetails && (
         <SavedQueryModal
           open={openStatusModal}
-          onClose={handleCloseStatusModal}
+          onClose={handleCloseSavedQueryModal}
           queryDetails={queryDetails}
           onUpdateStatus={handleResolveQuery}
         />
@@ -136,7 +136,7 @@ export const FormDataComponent = () => {
       {openModal && (
         <CreateQueryModal
           open={openModal}
-          onClose={handleCloseModal}
+          onClose={handleCloseNewQueryModal}
           onSubmit={handleCreateQuery}
           rowData={selectedRow}
         />
@@ -144,3 +144,5 @@ export const FormDataComponent = () => {
     </Box>
   )
 }
+
+export default FormDataComponent

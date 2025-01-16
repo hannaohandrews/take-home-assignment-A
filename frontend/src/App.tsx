@@ -1,6 +1,6 @@
 import React from 'react'
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material'
-import { FormDataComponent } from './components/FormDataComponent'
+import FormDataComponent from './components/FormDataComponent'
 
 const theme = createTheme({
   typography: {
